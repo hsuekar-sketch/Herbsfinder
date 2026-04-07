@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HerbsFinder – Your Guide to Herbs, Foraging & Plant Medicine</title>
+  <meta name="description" content="Discover the world of herbs: growing guides, medicinal uses, foraging tips, recipes, and the science behind nature's most powerful plants. New articles every day." />
+  <meta name="keywords" content="herbs, medicinal herbs, herb garden, foraging, plant medicine, growing herbs, herbal remedies, lavender, rosemary, turmeric" />
+  <meta property="og:title" content="HerbsFinder – Your Guide to Herbs, Foraging & Plant Medicine" />
+  <meta property="og:description" content="Discover the world of herbs: growing guides, medicinal uses, foraging tips, recipes, and more." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.herbsfinder.com" />
+  <link rel="canonical" href="https://www.herbsfinder.com" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/articles.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+
+<!-- ══ HEADER ══════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">🌿</span>
+        Herbs<span>Finder</span>
+      </a>
+
+      <nav class="main-nav" id="main-nav">
+        <a href="index.html" class="active">Home</a>
+        <a href="category.html?cat=Growing+Guide">Growing</a>
+        <a href="category.html?cat=Medicinal+Herbs">Medicinal</a>
+        <a href="category.html?cat=Foraging">Foraging</a>
+        <a href="category.html?cat=Herb+Profiles">Herb Profiles</a>
+        <a href="category.html?cat=How-To">How-To</a>
+      </nav>
+
+      <div class="header-search" id="search-trigger">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Search herbs…" id="search-input-header" autocomplete="off" />
+      </div>
+
+      <button class="menu-toggle" id="menu-toggle" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<!-- ══ SEARCH OVERLAY ══════════════════════════════════════ -->
+<div class="search-overlay" id="search-overlay">
+  <div class="search-box">
+    <div class="search-input-wrap">
+      <svg width="20" height="20" fill="none" stroke="#6b5d4f" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="search-main" placeholder="Search herbs, topics, remedies…" autofocus />
+      <button onclick="document.getElementById('search-overlay').classList.remove('active')" style="border:none;background:none;cursor:pointer;color:#6b5d4f;font-size:1.3rem;">✕</button>
+    </div>
+    <div id="search-results"></div>
+  </div>
+</div>
+
+<!-- ══ HERO ════════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="hero-eyebrow fade-up">Nature's Pharmacy</div>
+        <h1 class="fade-up" data-delay="1">
+          Find, Grow &amp; Use<br>
+          <em>Herbs</em> Like an Expert
+        </h1>
+        <p class="hero-desc fade-up" data-delay="2">
+          From your windowsill to wild forests, HerbsFinder is your daily guide to the world's most powerful plants — with growing advice, medicinal wisdom, foraging tips, and culinary inspiration.
+        </p>
+        <div class="hero-actions fade-up" data-delay="3">
+          <a href="category.html?cat=Beginner+Tips" class="btn btn--solid">Start Here →</a>
+          <a href="category.html" class="btn">All Categories</a>
+        </div>
+        <div class="hero-stats fade-up" data-delay="4">
+          <div class="hero-stat">
+            <strong id="article-count">8</strong>
+            <span>Articles</span>
+          </div>
+          <div class="hero-stat">
+            <strong>6</strong>
+            <span>Categories</span>
+          </div>
+          <div class="hero-stat">
+            <strong>500+</strong>
+            <span>Herb Species</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-image-wrap fade-up" data-delay="2">
+        <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1000&q=80" alt="Fresh herbs in a garden" loading="eager" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CATEGORIES ══════════════════════════════════════════ -->
+<section class="categories-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Browse by Category</h2>
+    </div>
+    <div class="categories-grid" id="categories-grid">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ══ FEATURED ARTICLES ═══════════════════════════════════ -->
+<section class="featured-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Featured Stories</h2>
+      <a href="category.html" class="section-link">View all →</a>
+    </div>
+    <div class="featured-grid" id="featured-grid">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ══ LATEST ARTICLES GRID ════════════════════════════════ -->
+<section class="articles-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Latest Articles</h2>
+      <a href="category.html" class="section-link">All articles →</a>
+    </div>
+    <div class="article-grid" id="article-grid">
+      <!-- Rendered by JS -->
+    </div>
+    <div style="text-align:center; margin-top:3rem;">
+      <button class="btn btn--solid" id="load-more-btn">Load More Articles</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ NEWSLETTER ══════════════════════════════════════════ -->
+<section class="newsletter-section">
+  <div class="container">
+    <h2 class="fade-up">Get the Herb of the Week</h2>
+    <p class="fade-up" data-delay="1">Join thousands of herb enthusiasts. Every Sunday, one herb — its history, uses, and growing tips — delivered to your inbox.</p>
+    <form class="newsletter-form fade-up" data-delay="2" onsubmit="handleNewsletterSubmit(event)">
+      <input type="email" placeholder="Your email address…" required aria-label="Email address" />
+      <button type="submit">Subscribe Free</button>
+    </form>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <span class="logo-icon">🌿</span>
+          Herbs<span style="color:var(--gold-lt)">Finder</span>
+        </a>
+        <p class="footer-desc">Your daily guide to growing, finding, and using herbs for cooking, wellness, and wild foraging. New content published every day.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Growing</h4>
+        <ul>
+          <li><a href="category.html?cat=Growing+Guide">Growing Guides</a></li>
+          <li><a href="category.html?cat=Beginner+Tips">Beginner Tips</a></li>
+          <li><a href="category.html?cat=How-To">How-To's</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Discover</h4>
+        <ul>
+          <li><a href="category.html?cat=Herb+Profiles">Herb Profiles</a></li>
+          <li><a href="category.html?cat=Medicinal+Herbs">Medicinal Herbs</a></li>
+          <li><a href="category.html?cat=Foraging">Foraging</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>About</h4>
+        <ul>
+          <li><a href="about.html">About HerbsFinder</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="disclaimer.html">Medical Disclaimer</a></li>
+          <li><a href="admin.html">✏️ Admin</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> HerbsFinder.com — All Rights Reserved</span>
+      <span>⚠️ This site is for informational purposes only. Always consult a healthcare professional.</span>
+    </div>
+  </div>
+</footer>
+
+<button class="scroll-top" id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">↑</button>
+
+</body>
+</html>

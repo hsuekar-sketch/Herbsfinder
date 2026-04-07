@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="page-title">All Articles – HerbsFinder</title>
+  <meta name="description" content="Browse all herb articles by category — growing guides, medicinal herbs, foraging, and more." />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/articles.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <style>
+    .cat-hero { background: var(--forest); color: var(--cream); padding: 4rem 0 3rem; }
+    .cat-hero h1 { color: var(--cream); font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .cat-hero p { color: rgba(245,240,230,0.75); max-width: 560px; }
+    .cat-filter { padding: 2rem 0 0; }
+    .filter-bar { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .filter-btn {
+      font-family: var(--font-ui); font-size: 0.8rem; font-weight: 500;
+      padding: 0.5rem 1.1rem; border-radius: 20px; cursor: pointer;
+      border: 1px solid var(--moss); background: var(--parchment);
+      color: var(--forest); transition: var(--transition);
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--forest); color: var(--cream); border-color: var(--forest);
+    }
+    .all-articles { padding: 3rem 0 5rem; }
+    .articles-count { font-family: var(--font-ui); font-size: 0.85rem; color: var(--text-lt); margin-bottom: 2rem; }
+    .big-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    @media(max-width:900px) { .big-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media(max-width:540px) { .big-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">🌿</span>
+        Herbs<span>Finder</span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="category.html?cat=Growing+Guide">Growing</a>
+        <a href="category.html?cat=Medicinal+Herbs">Medicinal</a>
+        <a href="category.html?cat=Foraging">Foraging</a>
+        <a href="category.html?cat=Herb+Profiles">Herb Profiles</a>
+        <a href="category.html?cat=How-To">How-To</a>
+      </nav>
+      <div class="header-search" id="search-trigger">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Search…" id="search-input-header" autocomplete="off" />
+      </div>
+      <button class="menu-toggle" id="menu-toggle">☰</button>
+    </div>
+  </div>
+</header>
+
+<div class="search-overlay" id="search-overlay">
+  <div class="search-box">
+    <div class="search-input-wrap">
+      <svg width="20" height="20" fill="none" stroke="#6b5d4f" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="search-main" placeholder="Search herbs…" />
+      <button onclick="document.getElementById('search-overlay').classList.remove('active')" style="border:none;background:none;cursor:pointer;color:#6b5d4f;font-size:1.3rem;">✕</button>
+    </div>
+    <div id="search-results"></div>
+  </div>
+</div>
+
+<section class="cat-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a> › <span id="cat-breadcrumb">All Articles</span>
+    </div>
+    <h1 id="cat-title">All Articles</h1>
+    <p id="cat-desc">Browse all our herb guides, growing tips, medicinal profiles, and foraging articles.</p>
+  </div>
+</section>
+
+<section class="cat-filter">
+  <div class="container">
+    <div class="filter-bar" id="filter-bar"></div>
+  </div>
+</section>
+
+<section class="all-articles">
+  <div class="container">
+    <p class="articles-count" id="articles-count"></p>
+    <div class="big-grid" id="big-grid"></div>
+    <div style="text-align:center;margin-top:3rem;">
+      <button class="btn btn--solid" id="load-more-cat">Load More</button>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <span class="logo-icon">🌿</span>
+          Herbs<span style="color:var(--gold-lt)">Finder</span>
+        </a>
+        <p class="footer-desc">Your daily guide to growing, finding, and using herbs.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Categories</h4>
+        <ul id="footer-cats-list"></ul>
+      </div>
+      <div class="footer-col">
+        <h4>About</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="disclaimer.html">Disclaimer</a></li>
+          <li><a href="admin.html">Admin</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Newsletter</h4>
+        <p style="font-size:0.85rem;color:rgba(245,240,230,0.6);margin-bottom:0.75rem;">One herb, every Sunday.</p>
+        <form onsubmit="handleNewsletterSubmit(event)" style="display:flex;flex-direction:column;gap:0.5rem;">
+          <input type="email" required placeholder="Email" style="padding:0.6rem 1rem;border:1px solid rgba(245,240,230,0.3);background:rgba(245,240,230,0.1);color:var(--cream);border-radius:4px;font-size:0.85rem;outline:none;font-family:var(--font-body);" />
+          <button type="submit" style="padding:0.6rem;background:var(--gold);border:none;color:var(--forest);font-weight:600;font-family:var(--font-ui);border-radius:4px;cursor:pointer;">Subscribe</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> HerbsFinder.com</span>
+    </div>
+  </div>
+</footer>
+
+<button class="scroll-top" id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+</body>
+</html>

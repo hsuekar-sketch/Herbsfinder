@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="page-title">Article – HerbsFinder</title>
+  <meta name="description" id="page-desc" content="" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" id="og-url" content="" />
+  <meta property="og:title" id="og-title" content="" />
+  <meta property="og:description" id="og-desc" content="" />
+  <meta property="og:image" id="og-image" content="" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/articles.js" defer></script>
+  <script src="js/main.js" defer></script>
+
+  <style>
+    .related-section { background: var(--parchment); padding: 4rem 0; }
+    .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    @media(max-width:768px) { .related-grid { grid-template-columns: 1fr 1fr; } }
+    @media(max-width:520px) { .related-grid { grid-template-columns: 1fr; } }
+    .progress-bar {
+      position: fixed; top: 0; left: 0; height: 3px;
+      background: var(--gold); width: 0%; z-index: 999;
+      transition: width 0.1s;
+    }
+    .share-bar {
+      display: flex; gap: 0.75rem; align-items: center;
+      padding: 1.5rem 0; border-top: 1px solid var(--parchment);
+      border-bottom: 1px solid var(--parchment);
+      margin-bottom: 2rem;
+    }
+    .share-bar span { font-family: var(--font-ui); font-size: 0.8rem; color: var(--text-lt); }
+    .share-btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-family: var(--font-ui); font-size: 0.78rem; font-weight: 500;
+      padding: 0.4rem 0.9rem; border-radius: 20px; cursor: pointer;
+      border: 1px solid var(--moss); background: var(--parchment);
+      color: var(--forest); transition: var(--transition);
+    }
+    .share-btn:hover { background: var(--forest); color: var(--cream); border-color: var(--forest); }
+  </style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress-bar"></div>
+
+<!-- ══ HEADER ══════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">🌿</span>
+        Herbs<span>Finder</span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="category.html?cat=Growing+Guide">Growing</a>
+        <a href="category.html?cat=Medicinal+Herbs">Medicinal</a>
+        <a href="category.html?cat=Foraging">Foraging</a>
+        <a href="category.html?cat=Herb+Profiles">Herb Profiles</a>
+        <a href="category.html?cat=How-To">How-To</a>
+      </nav>
+      <div class="header-search" id="search-trigger">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Search…" id="search-input-header" autocomplete="off" />
+      </div>
+      <button class="menu-toggle" id="menu-toggle">☰</button>
+    </div>
+  </div>
+</header>
+
+<!-- ══ SEARCH OVERLAY ══════════════════════════════════════ -->
+<div class="search-overlay" id="search-overlay">
+  <div class="search-box">
+    <div class="search-input-wrap">
+      <svg width="20" height="20" fill="none" stroke="#6b5d4f" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="search-main" placeholder="Search herbs…" autofocus />
+      <button onclick="document.getElementById('search-overlay').classList.remove('active')" style="border:none;background:none;cursor:pointer;color:#6b5d4f;font-size:1.3rem;">✕</button>
+    </div>
+    <div id="search-results"></div>
+  </div>
+</div>
+
+<!-- ══ ARTICLE HERO ════════════════════════════════════════ -->
+<section class="article-hero" id="article-hero">
+  <div class="container">
+    <nav class="breadcrumb" id="breadcrumb"></nav>
+    <div class="article-meta-bar" id="article-meta-bar"></div>
+    <h1 class="article-title" id="article-title">Loading…</h1>
+    <p class="article-excerpt" id="article-excerpt"></p>
+  </div>
+  <img class="article-cover" id="article-cover" src="" alt="" loading="eager" />
+</section>
+
+<!-- ══ ARTICLE BODY ════════════════════════════════════════ -->
+<div class="container">
+  <div class="article-layout">
+    <main>
+      <!-- Share bar -->
+      <div class="share-bar">
+        <span>Share:</span>
+        <button class="share-btn" onclick="shareArticle('twitter')">🐦 Twitter</button>
+        <button class="share-btn" onclick="shareArticle('facebook')">📘 Facebook</button>
+        <button class="share-btn" onclick="shareArticle('copy')">🔗 Copy Link</button>
+      </div>
+
+      <!-- Article content -->
+      <div class="article-body" id="article-body"></div>
+
+      <!-- Tags -->
+      <div class="article-tags" id="article-tags"></div>
+
+      <!-- Author box -->
+      <div style="background:var(--parchment);border-radius:4px;padding:1.5rem;margin-top:2.5rem;display:flex;gap:1.25rem;align-items:center;">
+        <div style="width:60px;height:60px;background:var(--forest);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;">🌿</div>
+        <div>
+          <div style="font-family:var(--font-display);font-weight:700;color:var(--forest);margin-bottom:0.35rem;" id="author-name">HerbsFinder Editorial</div>
+          <p style="font-size:0.87rem;color:var(--text-lt);margin:0;">Our editorial team researches and writes in-depth guides about herbs, plant medicine, growing, and foraging — combining traditional wisdom with scientific evidence.</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-widget">
+        <h3>🔥 Popular This Week</h3>
+        <div class="sidebar-list" id="sidebar-popular"></div>
+      </div>
+
+      <div class="sidebar-widget" style="background:var(--forest);border-color:var(--forest);color:var(--cream);">
+        <h3 style="color:var(--gold-lt);border-color:rgba(245,240,230,0.2);">📬 Weekly Herb</h3>
+        <p style="font-size:0.85rem;color:rgba(245,240,230,0.75);margin-bottom:1rem;">One herb, every Sunday. Free forever.</p>
+        <form onsubmit="handleNewsletterSubmit(event)" style="display:flex;flex-direction:column;gap:0.5rem;">
+          <input type="email" required placeholder="your@email.com" style="padding:0.6rem 1rem;border:1px solid rgba(245,240,230,0.3);background:rgba(245,240,230,0.1);color:var(--cream);border-radius:4px;font-size:0.85rem;outline:none;font-family:var(--font-body);" />
+          <button type="submit" style="padding:0.65rem;background:var(--gold);border:none;color:var(--forest);font-weight:600;font-family:var(--font-ui);border-radius:4px;cursor:pointer;">Subscribe →</button>
+        </form>
+      </div>
+
+      <div class="sidebar-widget">
+        <h3>📁 Categories</h3>
+        <div id="sidebar-cats" style="display:flex;flex-direction:column;gap:0.5rem;"></div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<!-- ══ RELATED ARTICLES ════════════════════════════════════ -->
+<section class="related-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Related Articles</h2>
+    </div>
+    <div class="related-grid" id="related-grid"></div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <span class="logo-icon">🌿</span>
+          Herbs<span style="color:var(--gold-lt)">Finder</span>
+        </a>
+        <p class="footer-desc">Your daily guide to growing, finding, and using herbs for cooking, wellness, and wild foraging.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Growing</h4>
+        <ul>
+          <li><a href="category.html?cat=Growing+Guide">Growing Guides</a></li>
+          <li><a href="category.html?cat=Beginner+Tips">Beginner Tips</a></li>
+          <li><a href="category.html?cat=How-To">How-To's</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Discover</h4>
+        <ul>
+          <li><a href="category.html?cat=Herb+Profiles">Herb Profiles</a></li>
+          <li><a href="category.html?cat=Medicinal+Herbs">Medicinal Herbs</a></li>
+          <li><a href="category.html?cat=Foraging">Foraging</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>About</h4>
+        <ul>
+          <li><a href="about.html">About HerbsFinder</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="disclaimer.html">Medical Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> HerbsFinder.com</span>
+      <span>⚠️ For informational purposes only. Not medical advice.</span>
+    </div>
+  </div>
+</footer>
+
+<button class="scroll-top" id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+</body>
+</html>
